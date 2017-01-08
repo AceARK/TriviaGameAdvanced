@@ -24,8 +24,11 @@
 	
 
 	<div class="row">
-		<div class="col-sm-3 col-sm-offset-9">
-			Time Left: <span id="timeLeft"></span>
+		<div class="col-sm-4 col-sm-offset-2">
+			Questions left: <span id="questionsLeft"></span>
+		</div>
+		<div class="col-sm-3 col-sm-offset-1">
+			Time left: <span id="timeLeft"></span>
 		</div>
 	</div>
 	</div>
@@ -42,14 +45,14 @@
 	<div class="row">
 		<div class="col-sm-8 display col-sm-offset-2" id="displayAnswer">
 			<p id="message"></p>
-			The correct answer was: <span id="correctAnswer"></span>
+			<p id="rightAnswer"></p>
 			<div class="image"></div>
 		</div>
 	</div>
 
 	<div class="row">
 		<div class="col-sm-8 display col-sm-offset-2" id="displayResults">
-			<h1>Good Job!! Here's how you fared - </h1>
+			<h1><span id="exclamation"></span> Here's how you fared: </h1>
 			<p>Correct Answers: <span id="correctAnswers"></span></p>
 			<p>Wrong Answers: <span id="wrongAnswers"></span></p>
 			<p>Unanswered: <span id="unanswered"></span></p>

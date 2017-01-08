@@ -70,10 +70,12 @@ var game = {
 	countDownEnd: false,
 	questionCount: 0,
 	usedQuestionsIndex: [],
-	currentQuestion: "",
+	currentQuestion: {},
+	answerChosen: false,
 	rightAnswers: 0,
 	wrongAnswers: 0,
 	unanswered: 0,
+	correctAnswer: "",
 	correctMessage: ['Way To Go!!!', 'You are Correct!!', 'You Rock!!', "Good Job!!"],
 	wrongMessage: ['Sorry, Wrong Answer.', 'Better luck next time', 'Nope! Wrong Answer.'],
 
@@ -115,8 +117,11 @@ var game = {
 					//console.log("wrong answer at " + optionsIterator + " is " + game.currentQuestion.incorrect_answers[incorrectAnswersArrayIterator]);
 				}
 			}
+			game.answerChosen = false;
 			game.questionCount++;
 			console.log("Questions count - " + game.questionCount);
+			$("#start").hide();
+			$("#questionsLeft").html(10 - game.questionCount);
 			if(!game.countDownStarted) {
 				game.startCountdown();
 			}	
@@ -139,7 +144,7 @@ var game = {
 		}else {
 			game.stopCountdown();
 			game.countDownStarted = false;
-			game.time=5;
+			game.time = 5;
 			game.displayAnswer("none");
 		}
 	},
@@ -167,27 +172,30 @@ var game = {
 		}
 		game.stopCountdown();
 		game.countDownStarted = false;
-		game.time=5;
+		game.time = 5;
 		game.displayAnswer($(choice).data('answer'));
 	},
 
-	displayAnswer : function displayAnswer(string) {
+	displayAnswer : function displayAnswer(result) {
 
-		if(string === "correct") {
+		if(result === "correct") {
 			var randomIndex = Math.floor(Math.random()*game.correctMessage.length);
 			$("#message").html(game.correctMessage[randomIndex]);
+			$("#rightAnswer").html("");
 		}
-		else if(string === "wrong") {
+		else if(result === "wrong") {
 			var randomIndex = Math.floor(Math.random()*game.wrongMessage.length);
-			$("#message").html(game.wrongMessage[randomIndex]);   
+			$("#message").html(game.wrongMessage[randomIndex]); 
+			$("#rightAnswer").html("The correct answer was - " + game.currentQuestion.correct_answer);  
 		}
 		else {
 			$("#message").html("Time up!!");
+			$("#rightAnswer").html("The correct answer was - " + game.currentQuestion.correct_answer);
 		}
 		
-		$("#rightAnswer").html("The correct answer was - " + game.currentQuestion.correct_answer);
 	 	$("#answerImage").html("<img src='"+game.currentQuestion.src+"'>");
-	    setTimeout(game.proceed, 4500);
+	 	$("#displayAnswer").show();
+	    setTimeout(game.proceed, 3000);
 	},
 
 	proceed : function proceed() {
@@ -201,25 +209,37 @@ var game = {
 
 		$("#correctAnswers").html(game.rightAnswers);
 		$("#wrongAnswers").html(game.wrongAnswers);
-
 		$("#unanswered").html(game.unanswered);
+		
+		(game.rightAnswers > 5) ? $("#exclamation").html("Good Job!!!") : $("#exclamation").html("All Done.");
+
 		$("#displayResults").show(); 
 	
 	 	
-	    // setTimeout(function(){$(".displayResults").hide()},4500); ///////////// check if after end of game, it starts over without user input
+	    setTimeout(function(){
+	    	game.restartGame();
+	    },4500); 
 	},
 
 
-	///////////
+	/////////////////
 	restartGame : function restartGame() {
+		this.time =  5;
 		this.questionArray = [];
 		this.questionCount = 0;
+		this.usedQuestionsIndex =  [];
+		this.currentQuestion =  {};
+		this.correctAnswer =  "";
+		this.answerChosen = false;
 		this.rightAnswers = 0;
 		this.wrongAnswers = 0;
 		this.unanswered = 0;
 		this.countDownStarted = false;
 		this.countDownEnd = false
-		this.game.displayQuestion();
+		this.displayQuestion();
+		clearInterval(countdownInterval);
+		game.restarted = true;
+		$("#displayResults").hide();
 	}
 
 };
@@ -237,12 +257,17 @@ $(document).ready(function(event) {
 
   	$(".answerOptions").on("click", function(){
   		game.stopCountdown();
-  		game.evaluateResults(this);
+  		if(!game.answerChosen) {
+  			game.evaluateResults(this);
+  			game.answerChosen = true;
+  		}
   		// game.getGiphyImage(currentQuestion.queryWord);
   	});
 
   	$("#restartTrivia").on("click", function(){
-  		game.restartGame();
+  		if(!game.restarted) {
+  			game.restartGame();
+  		}
   	});
 
 });
