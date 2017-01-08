@@ -1,3 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Trivia Game Advanced</title>
+	<script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="assets/css/style.css">
+	<script type="text/javascript" src="assets/javascript/app.js"></script>
+</head>
+<body>
+
+</body>
+</html>
 <div class="container">
 	<div class="row openingPage">
 		<div class="col-sm-8 col-sm-offset-2">
@@ -14,24 +31,28 @@
 	</div>
 	<form class="form-group row">
 		<div class="col-sm-12 triviaQuestion">
-			<div id="triviaQuestion"></div>
-			<div class="answerOptions"></div>
+			<div id="question"></div>
+			<div class="answerOptions" id="option0"></div>
+			<div class="answerOptions" id="option1"></div>
+			<div class="answerOptions" id="option2"></div>
+			<div class="answerOptions" id="option3"></div>
 	    </div>
 	</form>
 
 	<div class="row">
-		<div class="col-sm-8 displayResult col-sm-offset-2">
+		<div class="col-sm-8 display col-sm-offset-2" id="displayAnswer">
 			<p id="message"></p>
-			The correct answer was: <span id="rightAnswer"></span>
+			The correct answer was: <span id="correctAnswer"></span>
 			<div class="image"></div>
 		</div>
 	</div>
 
 	<div class="row">
-		<div class="col-sm-8 displayStats col-sm-offset-2">
-			<p id="correctAnswers"></p>
-			<p id="wrongAnswers"></p>
-			<p id="unanswered"></p>
+		<div class="col-sm-8 display col-sm-offset-2" id="displayResults">
+			<h1>Good Job!! Here's how you fared - </h1>
+			<p>Correct Answers: <span id="correctAnswers"></span></p>
+			<p>Wrong Answers: <span id="wrongAnswers"></span></p>
+			<p>Unanswered: <span id="unanswered"></span></p>
 
 			<button id="restartTrivia" class="btn btn-lg btn-info">Restart Trivia</button>
 		</div>
