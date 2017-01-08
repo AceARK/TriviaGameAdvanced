@@ -65,7 +65,9 @@ var triviaQuestions =
 var countdownInterval;
 
 var game = {
-	time: 15,
+	time: 5,
+	countDownStarted: false,
+	countDownEnd: false,
 	questionCount: 0,
 	usedQuestionsIndex: [],
 	currentQuestion: "",
@@ -79,11 +81,11 @@ var game = {
 		if(game.questionCount<10) {
 			// choosing a question randomly from the list of questions
 			var randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
-			console.log("Random index - " + randomQuestionIndex);
+			//console.log("Random index - " + randomQuestionIndex);
 			// avoiding duplicate question indices
 			while(game.usedQuestionsIndex.indexOf(randomQuestionIndex) != -1) {
 				randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
-				console.log("Duplicate hence random index - " + randomQuestionIndex);
+				//console.log("Duplicate hence random index - " + randomQuestionIndex);
 			}
 			// pushing index of current question to usedQuestionsIndex to avoid repetitive questions
 			game.usedQuestionsIndex.push(randomQuestionIndex);
@@ -95,27 +97,29 @@ var game = {
 			// choosing a random index to store correct answer
 			var correctAnswerIndex = Math.floor(Math.random()*4);
 			console.log("correct index " + correctAnswerIndex);
-			var j=0;
+			var incorrectAnswersArrayIterator=0;
 			// populating choices for the question
-			for(var i=0; i<4; i++) {
+			for(var optionsIterator=0; optionsIterator<4; optionsIterator++) {
 				// populating correct choice
-				console.log("i = "+i+", j = " +j);
-				if(i === correctAnswerIndex) {
-					$("#option"+i).html(game.currentQuestion.correct_answer);
-					$("#option"+i).data("answer", "correct");
-					console.log("correct answer at " + i + " is " + game.currentQuestion.correct_answer);
+				//console.log("optionsIterator = "+optionsIterator+", incorrectAnswersArrayIterator = " +incorrectAnswersArrayIterator);
+				if(optionsIterator === correctAnswerIndex) {
+					$("#option"+optionsIterator).html(game.currentQuestion.correct_answer);
+					$("#option"+optionsIterator).data("answer", "correct");
+					//console.log("correct answer at " + optionsIterator + " is " + game.currentQuestion.correct_answer);
 				}
 				// populating wrong choices
 				else {
-					$("#option"+i).html(game.currentQuestion.incorrect_answers[j]);
-					j++;
-					$("#option"+i).data("answer", "wrong");
-					console.log("wrong answer at " + i + " is " + game.currentQuestion.incorrect_answers[j]);
+					$("#option"+optionsIterator).html(game.currentQuestion.incorrect_answers[incorrectAnswersArrayIterator]);
+					incorrectAnswersArrayIterator++;
+					$("#option"+optionsIterator).data("answer", "wrong");
+					//console.log("wrong answer at " + optionsIterator + " is " + game.currentQuestion.incorrect_answers[incorrectAnswersArrayIterator]);
 				}
 			}
 			game.questionCount++;
-			console.log("Questions over - " + game.questionCount);
-			game.startCountdown();
+			console.log("Questions count - " + game.questionCount);
+			if(!game.countDownStarted) {
+				game.startCountdown();
+			}	
 		}
 		else {
 			game.displayResults();
@@ -123,22 +127,19 @@ var game = {
 	},
 
 	startCountdown : function startCountdown() {
-		if(!game.countDownEnd && !game.countDownStarted){
-			countdownInterval = setInterval(game.decrementTimer,1000);
-		}
+		countdownInterval = setInterval(game.decrementTimer,1000);
 		game.countDownStarted = true;
 	},
 
 	decrementTimer : function decrementTimer() {
-		if(game.time>0){
-			game.time--;
-		}
-
 		$("#timeLeft").html(game.time);
 		console.log("counting down - " + game.time);
-
-		if(game.time === 0) {
-			game.countDownEnd = true;
+		if(game.time>0){
+			game.time--;
+		}else {
+			game.stopCountdown();
+			game.countDownStarted = false;
+			game.time=5;
 			game.displayAnswer("none");
 		}
 	},
@@ -148,11 +149,11 @@ var game = {
 		clearInterval(countdownInterval);
 	},
 
-	evaluateResults : function evaluateResults(object) {
+	evaluateResults : function evaluateResults(choice) {
 
-		console.log($(this).data("answer"));
+		console.log($(choice).data("answer"));
 
-		switch($(this).data('answer')) {
+		switch($(choice).data('answer')) {
 			case "correct":
 				game.rightAnswers++;
 				break;
@@ -165,17 +166,17 @@ var game = {
 				break;
 		}
 
-		game.displayAnswer($(this).data('answer'));
+		game.displayAnswer($(choice).data('answer'));
 	},
 
 	displayAnswer : function displayAnswer(string) {
 
 		if(string === "correct") {
-			var randomIndex = Math.floor(Math.random()*correctMessage.length());
+			var randomIndex = Math.floor(Math.random()*game.correctMessage.length);
 			$("#message").html(game.correctMessage[randomIndex]);
 		}
 		else if(string === "wrong") {
-			var randomIndex = Math.floor(Math.random()*wrongMessage.length());
+			var randomIndex = Math.floor(Math.random()*game.wrongMessage.length);
 			$("#message").html(game.wrongMessage[randomIndex]);   
 		}
 		else {
@@ -184,9 +185,13 @@ var game = {
 		
 		$("#rightAnswer").html("The correct answer was - " + game.currentQuestion.correct_answer);
 	 	$("#answerImage").html("<img src='"+game.currentQuestion.src+"'>");
-	    setTimeout($("#displayAnswer").hide(),4500);
-	    $("#timeUp").hide();
-	  	game.displayQuestion();
+	    setTimeout(game.proceed, 4500);
+	},
+
+	proceed : function proceed() {
+		$("#displayAnswer").hide();
+		$("#timeUp").hide();
+		game.displayQuestion();
 	},
 
 	////////////////
@@ -239,3 +244,4 @@ $(document).ready(function(event) {
   	});
 
 });
+
