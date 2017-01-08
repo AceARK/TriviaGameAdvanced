@@ -122,7 +122,7 @@ var game = {
 			}	
 		}
 		else {
-			game.displayResults();
+			game.endGame();
 		}
 	},
 
@@ -165,7 +165,9 @@ var game = {
 			default:
 				break;
 		}
-
+		game.stopCountdown();
+		game.countDownStarted = false;
+		game.time=5;
 		game.displayAnswer($(choice).data('answer'));
 	},
 
