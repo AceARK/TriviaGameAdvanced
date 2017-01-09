@@ -79,3 +79,16 @@ p>span {
 .answerImage>img {
 	height: 250px;
 }
+
+@media screen and (min-height: 800px) {
+	.heading, .start, .stats, .trivia {
+		margin: 20px;
+	}
+
+	.trivia {
+		margin-top: 35px;
+	}
+	.answerImage>img {
+		height: 300px;
+	}
+} 
