@@ -23,7 +23,7 @@ body {
 	height: 100%;
 	width: 100%;
 	margin: auto;
-	-webkit-animation: scaling 2s 4 ease;
+	-webkit-animation: scaling 2.5s 4 ease;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-direction: alternate;
 }
@@ -34,7 +34,7 @@ body {
         /*opacity: 1;*/
     }
     to {
-        -webkit-transform: scale(1.1);
+        -webkit-transform: scale(1.3);
         /*opacity: 0.5;*/
     }
 }

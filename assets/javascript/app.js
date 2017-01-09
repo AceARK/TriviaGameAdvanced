@@ -349,7 +349,10 @@ var game = {
 // program begins
 $(document).ready(function(event) { 
 
-	setTimeout(hideCover,2000);
+	$("#hpTheme")[0].currentTime = 0;
+	$("#hpTheme")[0].play();
+
+	setTimeout(hideCover,2500);
 
 	setInterval(game.setNewBackground, 15000);
 
