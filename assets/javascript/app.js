@@ -66,6 +66,8 @@ var backgroundIndex = 0;
 
 var countdownInterval;
 
+var restartGameAfterSetTime;
+
 var game = {
 	time: 7,
 	countDownStarted: false,
@@ -78,14 +80,14 @@ var game = {
 	wrongAnswers: 0,
 	unanswered: 0,
 	correctAnswer: "",
-	correctMessage: ['Way To Go!!!', 'You are Correct!!', 'Exceptional!!', "Extraordinary!!"],
+	correctMessage: ["Right Answer!!!", "You are Correct!!", "You're a Wiz!!", "Nicely Done!!"],
 	wrongMessage: ['Sorry, Wrong Answer.', 'Better luck next time.', 'Nope! Wrong Answer.'],
 
 	displayQuestion : function displayQuestion()  {
 		if(game.questionCount<10) {
-			if(game.questionCount == 1) {
-				game.restarted = false;
-			}
+			// if(game.questionCount == 1) {
+			// 	game.restarted = false;
+			// }
 			// choosing a question randomly from the list of questions
 			var randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
 			//console.log("Random index - " + randomQuestionIndex);
@@ -122,6 +124,7 @@ var game = {
 					//console.log("wrong answer at " + optionsIterator + " is " + game.currentQuestion.incorrect_answers[incorrectAnswersArrayIterator]);
 				}
 			}
+			$(".answerOptions").css("min-height", "38px");
 			game.answerChosen = false;
 			game.questionCount++;
 			console.log("Questions count - " + game.questionCount);
@@ -219,17 +222,17 @@ var game = {
 
 		if(result === "correct") {
 			var randomIndex = Math.floor(Math.random()*game.correctMessage.length);
-			$("#message").html(game.correctMessage[randomIndex]);
+			$("#message").html("<span>" + game.correctMessage[randomIndex] + "</span>");
 			$("#rightAnswer").html("");
 		}
 		else if(result === "wrong") {
 			var randomIndex = Math.floor(Math.random()*game.wrongMessage.length);
-			$("#message").html(game.wrongMessage[randomIndex]); 
-			$("#rightAnswer").html("The correct answer was - " + game.currentQuestion.correct_answer);  
+			$("#message").html("<span>" + game.wrongMessage[randomIndex] + "</span>"); 
+			$("#rightAnswer").html("The correct answer was - <span>" + game.currentQuestion.correct_answer + "</span>");  
 		}
 		else {
-			$("#message").html("Time up!!");
-			$("#rightAnswer").html("The correct answer was - " + game.currentQuestion.correct_answer);
+			$("#message").html("<span>Time up!!</span>");
+			$("#rightAnswer").html("The correct answer was - <span>" + game.currentQuestion.correct_answer + "</span>");
 		}
 		
 	 	$("#answerImage").html("<img src='"+game.currentQuestion.src+"'>");
@@ -262,11 +265,9 @@ var game = {
 		$(".timer").hide();
 		$("#timeLeft").hide();
 	 	
-	    setTimeout(function(){
-	    	if(!game.restarted) {
+	    restartGameAfterSetTime = setTimeout(function(){
 	  			game.restartGame();
-	  			game.restarted = true;
-	  		}
+	  		
 	    },4500); 
 	},
 
@@ -320,6 +321,15 @@ $(document).ready(function(event) {
   		game.displayQuestion();
   	});
 
+  	$(".answerOptions").hover(function(){
+  		var timerColor = $("#timeLeft").css('background-color');
+  		$(this).css('color', timerColor);
+  		$(this).css('font-size', '27px');
+  	}, function(){
+  		$(this).css('color', 'white');
+  		$(this).css('font-size', '25px');
+  	});
+
   	$(".answerOptions").on("click", function(){
   		game.stopCountdown();
   		// to avoid clicking multiple options and changing answer
@@ -332,10 +342,10 @@ $(document).ready(function(event) {
 
   	$("#restartTrivia").on("click", function(){
   		// to avoid multiple click of restart button
-  		if(!game.restarted) {
+  			clearTimeout(restartGameAfterSetTime);
   			game.restartGame();
-  			game.restarted = true;
-  		}
+  			// game.restarted = true;
+  		
   	});
 
 });

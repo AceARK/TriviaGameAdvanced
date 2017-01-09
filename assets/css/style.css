@@ -64,4 +64,14 @@ h1>span {
 	font-size: 25px;
 }
 
+p>span {
+	font-size: 50px;
+}
 
+#displayAnswer>p>span, #exclamation {
+	font-size: 35px;
+}
+
+#exclamation {
+	font-size: 30px;
+}
