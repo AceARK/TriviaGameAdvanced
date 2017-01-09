@@ -200,21 +200,29 @@ var game = {
 			case 3:
 				$("#timeLeft").css('background-color','#e1ff00');
 				$("#timeLeft").css('border','4px solid #a8a30a');
+				$("#timerSound")[0].currentTime = 0;
+				$("#timerSound")[0].play();
 				break;
 
 			case 2:
 				$("#timeLeft").css('background-color','#ff9900');
 				$("#timeLeft").css('border','4px solid #a36100');
+				$("#timerSound")[0].currentTime = 0;
+				$("#timerSound")[0].play();
 				break;
 
 			case 1:
 				$("#timeLeft").css('background-color','#e23131');
 				$("#timeLeft").css('border','4px solid #700c0c');
+				$("#timerSound")[0].currentTime = 0;
+				$("#timerSound")[0].play();
 				break;
 
 			case 0:
 				$(".triviaQuestion").hide();
 				$("#timeLeft").html("0");
+				$("#timerEnd")[0].currentTime = 0;
+				$("#timerEnd")[0].play();
 				game.countDownStarted = false;
 				game.answerChosen = true;
 				game.displayAnswer("none");
