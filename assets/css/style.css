@@ -104,11 +104,11 @@ p>span {
 
 @media screen and (min-height: 800px) {
 	.heading, .start, .stats, .trivia {
-		margin: 15px;
+		margin: 20px;
 	}
 
 	.trivia {
-		margin-top: 25px;
+		margin-top: 35px;
 	}
 	.answerImage>img {
 		height: 300px;
