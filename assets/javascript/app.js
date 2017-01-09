@@ -28,7 +28,7 @@ var triviaQuestions =
 	"question": "In 'Harry Potter and the Prisoner of Askaban', where does the Knight Bus drop Harry?",
 	"correct_answer": "The Leaky Cauldron",
 	"incorrect_answers": ["King's Cross Station","Hogwarts","Privet Drive"],
-	"src": "assets/images/knightbus.gif"
+	"src": "assets/images/leakycauldron.gif"
 	},
 	{
 	"question": "What is the name of Dumbledore's phoenix?",
