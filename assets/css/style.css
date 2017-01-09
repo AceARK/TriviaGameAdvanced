@@ -17,6 +17,28 @@ body {
     height: 100%;
 }
 
+.cover>img {
+	position: absolute;
+	z-index: 5;
+	height: 100%;
+	width: 100%;
+	margin: auto;
+	-webkit-animation: scaling 2s 4 ease;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes scaling {
+    from {
+        -webkit-transform: scale(1);
+        /*opacity: 1;*/
+    }
+    to {
+        -webkit-transform: scale(1.1);
+        /*opacity: 0.5;*/
+    }
+}
+
 .heading, .start, .stats, .trivia {
 	border: 2px double white;
 	border-radius: 5px;

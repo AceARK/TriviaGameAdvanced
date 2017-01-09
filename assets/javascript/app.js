@@ -352,6 +352,8 @@ var game = {
 // program begins
 $(document).ready(function(event) { 
 
+	setTimeout(hideCover,2000);
+
 	console.log(backgroundIndex);
 
 	setInterval(game.setNewBackground, 15000);
@@ -394,4 +396,8 @@ $(document).ready(function(event) {
   	});
 
 });
+
+function hideCover() {
+	$(".cover").hide();
+}
 
