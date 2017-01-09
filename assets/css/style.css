@@ -20,13 +20,13 @@ body {
 .heading, .start, .stats, .trivia {
 	border: 2px double white;
 	border-radius: 5px;
-	margin: 20px;
+	margin: 18px;
 	padding: 20px;
 	background-color: rgba(0,0,0,0.7);
 }
 
 .trivia {
-	margin-top: 40px;
+	margin-top: 25px;
 }
 
 h1>span {
@@ -74,4 +74,8 @@ p>span {
 
 #exclamation {
 	font-size: 30px;
+}
+
+.answerImage>img {
+	height: 250px;
 }

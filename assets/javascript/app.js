@@ -4,61 +4,109 @@ var triviaQuestions =
 	"question": "Which class at Hogwarts seemed like it was cursed, as no teacher lasted for more than a year?",
 	"correct_answer": "Defense against the Dark Arts",
 	"incorrect_answers": ["Arithmency","Transfiguration","Potions"],
-	"src": ""
+	"src": "assets/images/defense.gif"
 	},
 	{
 	"question": "Which creature did Hagrid own in his youth when he was accussed of being Slytherin's heir?",
 	"correct_answer": "An Acromantula named Aragog",
 	"incorrect_answers": ["Slytherin's monster, the Basilisk","Norwegian Ridgeback named Norbert","Hippogriff named Buckbeak"],
-	"src": ""
+	"src": "assets/images/acromantula.gif"
 	},
 	{
 	"question": "Another word for the Deluminator is",
 	"correct_answer": "Put-outer",
 	"incorrect_answers": ["Fireworks Lighter","Flashlight","Memory-stealer"],
-	"src": ""
+	"src": "assets/images/deluminator.gif"
 	},
 	{
 	"question": "Harry drinks _____ potion to turn into ____ in 'Harry Potter and the Chamber of Secrets'?",
 	"correct_answer": "Polyjuice Potion, Crabbe",
 	"incorrect_answers": ["Polyjuice Potion, Malfoy","Amortentia, Victor Krum","Felix Felicis, a stag"],
-	"src": ""
+	"src": "assets/images/crabbe.gif"
 	},
 	{
 	"question": "In 'Harry Potter and the Prisoner of Askaban', where does the Knight Bus drop Harry?",
 	"correct_answer": "The Leaky Cauldron",
 	"incorrect_answers": ["King's Cross Station","Hogwarts","Privet Drive"],
-	"src": ""
+	"src": "assets/images/knightbus.gif"
 	},
 	{
 	"question": "What is the name of Dumbledore's phoenix?",
 	"correct_answer": "Fawkes",
 	"incorrect_answers": ["Firenze","Hermes","Fierce"],
-	"src": ""
+	"src": "assets/images/fawkes.gif"
 	},
 	{
 	"question": "How many goal posts are there on a Quidditch pitch?",
 	"correct_answer": "6",
 	"incorrect_answers": ["3","2","8"],
-	"src": ""
+	"src": "assets/images/quidditch.gif"
 	},
 	{
 	"question": "Who is unanimously elected leader of Dumbledore's army?",
 	"correct_answer": "Harry Potter",
 	"incorrect_answers": ["Hermione Granger","Cho Chang","Neville Longbottom"],
-	"src": ""
+	"src": "assets/images/dumblearmy.gif"
 	},
 	{
 	"question": "What is the name of the fountain inside the Ministry of Magic?",
 	"correct_answer": "Fountain of Magical Brethren",
 	"incorrect_answers": ["Fountain of Fair Fortune","Magic is Might","Fountain of Eros"],
-	"src": ""
+	"src": "assets/images/fountain.gif"
 	},
 	{
 	"question": "What is Lord Voldemort's real name?",
 	"correct_answer": "Tom Marvolo Riddle",
 	"incorrect_answers": ["Tom Gaunt Riddle","Salazar Slytherine","Marvolo Gaunt Riddle"],
-	"src": ""
+	"src": "assets/images/riddle.gif"
+	},
+	{
+	"question": "Who was not a member of 'The Order of the Phoenix'?",
+	"correct_answer": "Bellatrix Lestrange",
+	"incorrect_answers": ["Mad-eye-Moody","Sirius Black","Rubeus Hagrid"],
+	"src": "assets/images/bellatrix.gif"
+	},
+	{
+	"question": "Who first shows Harry the diary of Tom Riddle?",
+	"correct_answer": "Moaning Myrtle",
+	"incorrect_answers": ["Ginny Weasley","Fawkes","Nearly Headless Nick"],
+	"src": "assets/images/moaningmyrtle.gif"
+	},
+	{
+	"question": "What are the three 'Unforgivable curses'?",
+	"correct_answer": "Avada Kedavra, Crucio, Imperio",
+	"incorrect_answers": ["Avada Kedavra, Crucio, Incarcerous","Impedimenta, Incarcerous and Incendio","Expelliarmus, Impedimenta, Expecto Patronum"],
+	"src": "assets/images/curse.gif"
+	},
+	{
+	"question": "What kind of creature is Dobby?",
+	"correct_answer": "House-elf",
+	"incorrect_answers": ["Goblin","Troll","Leprechaun"],
+	"src": "assets/images/dobby.gif"
+	},
+	{
+	"question": "What is the name of the book that Dumbledore bequeaths to Hermione in 'The Deathly Hallows'?",
+	"correct_answer": "Tales of Beedle the Bard",
+	"incorrect_answers": ["Tales of Gilderoy the Great","Tales of Crookshanks the Cat","Fantastic Beasts and Where to Find Them"],
+	"src": "assets/images/beedlebard.gif"
+	},
+	{
+	"question": "Which is the only book in the Harry Potter series that doesn't feature Lord Voldemort?",
+	"correct_answer": "The Prisoner of Askaban",
+	"incorrect_answers": ["The Sorcerer's Stone","The Deathly Hallows","The Order of the Phoenix"],
+	"src": "assets/images/prisoneraskaban.gif"
+	},
+	{
+	"question": "What spell is used in defense of a Boggart?",
+	"correct_answer": "Riddikulus",
+	"incorrect_answers": ["Ridiculous","Expelliarmus","Expecto Patronam"],
+	"src": "assets/images/boggart.gif"
+	},
+	{
+	"question": "What is the cure for Basilisk venom?",
+	"correct_answer": "Phoenix tears",
+	"incorrect_answers": ["Root of Mandrake","Bezoar","Dragon Fire'"],
+	"src": "assets/images/phoenixtears.gif"
 	}
 ]
 
@@ -85,12 +133,9 @@ var game = {
 
 	displayQuestion : function displayQuestion()  {
 		if(game.questionCount<10) {
-			// if(game.questionCount == 1) {
-			// 	game.restarted = false;
-			// }
 			// choosing a question randomly from the list of questions
 			var randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
-			//console.log("Random index - " + randomQuestionIndex);
+			
 			// avoiding duplicate question indices
 			while(game.usedQuestionsIndex.indexOf(randomQuestionIndex) != -1) {
 				randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
@@ -235,9 +280,9 @@ var game = {
 			$("#rightAnswer").html("The correct answer was - <span>" + game.currentQuestion.correct_answer + "</span>");
 		}
 		
-	 	$("#answerImage").html("<img src='"+game.currentQuestion.src+"'>");
+	 	$(".answerImage").html("<img src='"+game.currentQuestion.src+"'>");
 	 	$("#displayAnswer").show();
-	    setTimeout(game.proceed, 3000);
+	    setTimeout(game.proceed, 4000);
 	},
 
 	proceed : function proceed() {
