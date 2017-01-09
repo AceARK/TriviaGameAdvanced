@@ -10,54 +10,63 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="assets/css/style.css">
 	<script type="text/javascript" src="assets/javascript/app.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Fontdiner+Swanky" rel="stylesheet">
 </head>
 <body>
+	<div class="container">
+		<div class="row heading text-center">
+			<div class="col-sm-12">
+				<h1><span>HARRY POTTER </span> TRIVIA</h1>
+			</div>
+		</div>
+		<div class="row start text-center">
+			<div class="col-sm-12">
+				<button id="start" class = "btn btn-lg btn-danger">Start</button>
+			</div>
+		</div>		
+		<div class="row stats">
+			<div class="col-sm-6">
+				Questions left: <span id="questionsLeft"></span>
+			</div>
+			<div class="col-sm-6 timer">
+				<p id="timeLeft">8</p>
+			</div>
+		</div>
+	</div>
+		<div class="trivia row">
+			<div class="col-sm-12">
+				<div class="row text-center">
+					<div class="col-sm-12 instruction">
+						<h1>Click 'Start' to start Trivia</h1>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12 triviaQuestion text-center">
+						<div id="question" class="text-left"></div>
+						<div class="answerOptions" id="option0"></div>
+						<div class="answerOptions" id="option1"></div>
+						<div class="answerOptions" id="option2"></div>
+						<div class="answerOptions" id="option3"></div>
+				    </div>
+				</div>
+				 <div class="row text-center">
+					<div class="col-sm-12" id="displayAnswer">
+						<p id="message"></p>
+						<p id="rightAnswer"></p>
+						<div class="image"></div>
+					</div>
+				</div>
+				<div class="row text-center">
+					<div class="col-sm-12" id="displayResults">
+						<h1><span id="exclamation"></span> Here's how you fared: </h1>
+						<p>Correct Answers: <span id="correctAnswers"></span></p>
+						<p>Wrong Answers: <span id="wrongAnswers"></span></p>
+						<p>Unanswered: <span id="unanswered"></span></p>
 
+						<button id="restartTrivia" class="btn btn-lg btn-danger">Restart Trivia</button>
+					</div>
+				</div>
+			</div>
+		</div>
 </body>
 </html>
-<div class="container">
-	<div class="row openingPage">
-		<div class="col-sm-8 col-sm-offset-2">
-			<button id="start" class = "btn btn-lg btn-info">Start</button>
-		</div>
-	</div>
-	
-
-	<div class="row">
-		<div class="col-sm-4 col-sm-offset-2">
-			Questions left: <span id="questionsLeft"></span>
-		</div>
-		<div class="col-sm-3 col-sm-offset-1">
-			Time left: <span id="timeLeft"></span>
-		</div>
-	</div>
-	</div>
-	<form class="form-group row">
-		<div class="col-sm-12 triviaQuestion">
-			<div id="question"></div>
-			<div class="answerOptions" id="option0"></div>
-			<div class="answerOptions" id="option1"></div>
-			<div class="answerOptions" id="option2"></div>
-			<div class="answerOptions" id="option3"></div>
-	    </div>
-	</form>
-
-	<div class="row">
-		<div class="col-sm-8 display col-sm-offset-2" id="displayAnswer">
-			<p id="message"></p>
-			<p id="rightAnswer"></p>
-			<div class="image"></div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-sm-8 display col-sm-offset-2" id="displayResults">
-			<h1><span id="exclamation"></span> Here's how you fared: </h1>
-			<p>Correct Answers: <span id="correctAnswers"></span></p>
-			<p>Wrong Answers: <span id="wrongAnswers"></span></p>
-			<p>Unanswered: <span id="unanswered"></span></p>
-
-			<button id="restartTrivia" class="btn btn-lg btn-info">Restart Trivia</button>
-		</div>
-	</div>
-</div>

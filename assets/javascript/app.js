@@ -62,10 +62,13 @@ var triviaQuestions =
 	}
 ]
 
+var backgrounds = ["assets/images/hpbackground1.jpg","assets/images/hpbackground2.jpg","assets/images/hpbackground3.jpg","assets/images/hpbackground4.jpg","assets/images/hpbackground5.jpg","assets/images/hpbackground6.jpg","assets/images/hpbackground7.jpg","assets/images/hpbackground9.jpg","assets/images/hpbackground10.jpg","assets/images/hpbackground11.jpg","assets/images/hpbackground12.jpg","assets/images/hpbackground13.jpg","assets/images/hpbackground14.jpg","assets/images/hpbackground15.jpg","assets/images/hpbackground16.jpg","assets/images/hpbackground17.jpg","assets/images/hpbackground18.jpg","assets/images/hpbackground19.jpg","assets/images/hpbackground20.jpg"];
+var backgroundIndex = 0;
+
 var countdownInterval;
 
 var game = {
-	time: 5,
+	time: 7,
 	countDownStarted: false,
 	countDownEnd: false,
 	questionCount: 0,
@@ -76,8 +79,8 @@ var game = {
 	wrongAnswers: 0,
 	unanswered: 0,
 	correctAnswer: "",
-	correctMessage: ['Way To Go!!!', 'You are Correct!!', 'You Rock!!', "Good Job!!"],
-	wrongMessage: ['Sorry, Wrong Answer.', 'Better luck next time', 'Nope! Wrong Answer.'],
+	correctMessage: ['Way To Go!!!', 'You are Correct!!', 'Exceptional!!', "Extraordinary!!"],
+	wrongMessage: ['Sorry, Wrong Answer.', 'Better luck next time.', 'Nope! Wrong Answer.'],
 
 	displayQuestion : function displayQuestion()  {
 		if(game.questionCount<10) {
@@ -121,8 +124,12 @@ var game = {
 			game.questionCount++;
 			console.log("Questions count - " + game.questionCount);
 			$("#start").hide();
+			$(".triviaQuestion").show();
 			$("#questionsLeft").html(10 - game.questionCount);
 			if(!game.countDownStarted) {
+				game.time = 7;
+				$(".timer").show();
+				$("#timeLeft").show();
 				game.startCountdown();
 			}	
 		}
@@ -139,13 +146,42 @@ var game = {
 	decrementTimer : function decrementTimer() {
 		$("#timeLeft").html(game.time);
 		console.log("counting down - " + game.time);
+
+		switch(game.time) {
+			case 5:
+				$("#timeLeft").css('background-color','#6aff00');
+				$("#timeLeft").css('border','4px solid #409b00');
+				break;
+
+			case 3:
+				$("#timeLeft").css('background-color','#e1ff00');
+				$("#timeLeft").css('border','4px solid #a8a30a');
+				break;
+
+			case 2:
+				$("#timeLeft").css('background-color','#ff9900');
+				$("#timeLeft").css('border','4px solid #a36100');
+				break;
+
+			case 1:
+				$("#timeLeft").css('background-color','#e23131');
+				$("#timeLeft").css('border','4px solid #700c0c');
+				break;
+
+			case 0:
+				$(".triviaQuestion").hide();
+				$("#timeLeft").html("0");
+				game.countDownStarted = false;
+				// game.time = 7;
+				game.answerChosen = true;
+				game.displayAnswer("none");
+				game.stopCountdown();
+				break;
+
+		}
+
 		if(game.time>0){
 			game.time--;
-		}else {
-			game.stopCountdown();
-			game.countDownStarted = false;
-			game.time = 5;
-			game.displayAnswer("none");
 		}
 	},
 
@@ -172,7 +208,8 @@ var game = {
 		}
 		game.stopCountdown();
 		game.countDownStarted = false;
-		game.time = 5;
+		game.time = 7;
+		$(".triviaQuestion").hide();
 		game.displayAnswer($(choice).data('answer'));
 	},
 
@@ -201,11 +238,16 @@ var game = {
 	proceed : function proceed() {
 		$("#displayAnswer").hide();
 		$("#timeUp").hide();
+		$("#timeLeft").css('background-color','#04ff00');
+		$("#timeLeft").css('border','4px solid #028700');
 		game.displayQuestion();
+		$("#timeLeft").html("8");
 	},
-
-	////////////////
+	
 	endGame : function endGame() {
+
+		$(".triviaQuestion").hide();
+		$("#displayAnswer").hide();
 
 		$("#correctAnswers").html(game.rightAnswers);
 		$("#wrongAnswers").html(game.wrongAnswers);
@@ -221,10 +263,8 @@ var game = {
 	    },4500); 
 	},
 
-
-	/////////////////
 	restartGame : function restartGame() {
-		this.time =  5;
+		this.time =  7;
 		this.questionArray = [];
 		this.questionCount = 0;
 		this.usedQuestionsIndex =  [];
@@ -237,9 +277,20 @@ var game = {
 		this.countDownStarted = false;
 		this.countDownEnd = false
 		this.displayQuestion();
-		clearInterval(countdownInterval);
+		// clearInterval(countdownInterval);
+		$(".timer").hide();
+		$("#timeLeft").hide();
+		$("#timeLeft").css('background-color','#04ff00');
+		$("#timeLeft").css('border','4px solid #028700');
+		$("#timeLeft").html("8");
 		game.restarted = true;
 		$("#displayResults").hide();
+	},
+
+	setNewBackground : function setNewBackground() {
+		backgroundIndex = Math.floor(Math.random()*20);
+		var backgroundURL = 'url("'+ backgrounds[backgroundIndex] +'") no-repeat center center fixed';
+		$("body").css('background', backgroundURL);
 	}
 
 };
@@ -247,16 +298,24 @@ var game = {
 	
 // program begins
 $(document).ready(function(event) { 
+
+	console.log(backgroundIndex);
+
+	setTimeout(game.setNewBackground, 15000);
+
 	$("#displayAnswer").hide();
 	$("#displayResults").hide();
 	
   	$("#start").on("click",function(){
+  		$(".instruction").hide();
+  		$(".start").hide();
   		console.log("Start button clicked");
   		game.displayQuestion();
   	});
 
   	$(".answerOptions").on("click", function(){
   		game.stopCountdown();
+  		// to avoid clicking multiple options and changing answer
   		if(!game.answerChosen) {
   			game.evaluateResults(this);
   			game.answerChosen = true;
@@ -265,6 +324,7 @@ $(document).ready(function(event) {
   	});
 
   	$("#restartTrivia").on("click", function(){
+  		// to avoid multiple click of restart button
   		if(!game.restarted) {
   			game.restartGame();
   		}

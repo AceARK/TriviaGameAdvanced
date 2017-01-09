@@ -1,0 +1,60 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: url("../images/hpbackground1.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-size: 30px;
+    font-weight: 500;
+    color: white;
+    font-family: 'Fontdiner Swanky', cursive;
+}
+
+.heading, .start, .stats, .trivia {
+	border: 2px double white;
+	border-radius: 5px;
+	margin: 10px;
+	padding: 10px;
+	background-color: rgba(0,0,0,0.7);
+}
+
+h1>span {
+	font-size: 60px;
+}
+
+#displayAnswer, #displayResults {
+	display: none;
+}
+
+.timer>p {
+	height: 50px;
+	width: 50px;
+	font-size: 30px;
+	color: black;
+	border-radius: 50%;
+	margin: 0 auto 0 auto;
+	background-color: #04ff00;
+	border: 4px solid #028700;
+	font-weight: 600;
+	padding-left: 11px;
+}
+
+.timer {
+	display: none;
+}
+
+#question {
+	margin: 10px;
+	margin-bottom: 15px;
+}
+
+.answerOptions {
+	margin: 10px;
+	font-size: 25px;
+}
+
+
