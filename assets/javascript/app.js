@@ -62,7 +62,6 @@ var triviaQuestions =
 	}
 ]
 
-var backgrounds = ["assets/images/hpbackground1.jpg","assets/images/hpbackground2.jpg","assets/images/hpbackground3.jpg","assets/images/hpbackground4.jpg","assets/images/hpbackground5.jpg","assets/images/hpbackground6.jpg","assets/images/hpbackground7.jpg","assets/images/hpbackground9.jpg","assets/images/hpbackground10.jpg","assets/images/hpbackground11.jpg","assets/images/hpbackground12.jpg","assets/images/hpbackground13.jpg","assets/images/hpbackground14.jpg","assets/images/hpbackground15.jpg","assets/images/hpbackground16.jpg","assets/images/hpbackground17.jpg","assets/images/hpbackground18.jpg","assets/images/hpbackground19.jpg","assets/images/hpbackground20.jpg"];
 var backgroundIndex = 0;
 
 var countdownInterval;
@@ -84,6 +83,9 @@ var game = {
 
 	displayQuestion : function displayQuestion()  {
 		if(game.questionCount<10) {
+			if(game.questionCount == 1) {
+				game.restarted = false;
+			}
 			// choosing a question randomly from the list of questions
 			var randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
 			//console.log("Random index - " + randomQuestionIndex);
@@ -256,52 +258,57 @@ var game = {
 		(game.rightAnswers > 5) ? $("#exclamation").html("Good Job!!!") : $("#exclamation").html("All Done.");
 
 		$("#displayResults").show(); 
-	
+		
+		$(".timer").hide();
+		$("#timeLeft").hide();
 	 	
 	    setTimeout(function(){
-	    	game.restartGame();
+	    	if(!game.restarted) {
+	  			game.restartGame();
+	  			game.restarted = true;
+	  		}
 	    },4500); 
 	},
 
 	restartGame : function restartGame() {
-		this.time =  7;
-		this.questionArray = [];
-		this.questionCount = 0;
-		this.usedQuestionsIndex =  [];
-		this.currentQuestion =  {};
-		this.correctAnswer =  "";
-		this.answerChosen = false;
-		this.rightAnswers = 0;
-		this.wrongAnswers = 0;
-		this.unanswered = 0;
-		this.countDownStarted = false;
-		this.countDownEnd = false
-		this.displayQuestion();
+		game.time =  7;
+		game.questionArray = [];
+		game.questionCount = 0;
+		game.usedQuestionsIndex =  [];
+		game.currentQuestion =  {};
+		game.correctAnswer =  "";
+		game.answerChosen = false;
+		game.rightAnswers = 0;
+		game.wrongAnswers = 0;
+		game.unanswered = 0;
+		game.countDownStarted = false;
+		game.countDownEnd = false
+		// game.restarted = false;
+		game.displayQuestion();
 		// clearInterval(countdownInterval);
-		$(".timer").hide();
-		$("#timeLeft").hide();
+		$(".timer").show();
+		$("#timeLeft").show();
 		$("#timeLeft").css('background-color','#04ff00');
 		$("#timeLeft").css('border','4px solid #028700');
 		$("#timeLeft").html("8");
-		game.restarted = true;
 		$("#displayResults").hide();
 	},
 
 	setNewBackground : function setNewBackground() {
-		backgroundIndex = Math.floor(Math.random()*20);
-		var backgroundURL = 'url("'+ backgrounds[backgroundIndex] +'") no-repeat center center fixed';
-		$("body").css('background', backgroundURL);
+		backgroundIndex = Math.floor(Math.random()*19)+1;
+		var backgroundURL = 'black url("assets/images/hpbackground'+ backgroundIndex +'.jpg") no-repeat center center fixed';
+		$("body").css({'background': backgroundURL, 'background-size': '100% 100%'});
+
 	}
 
 };
 
-	
 // program begins
 $(document).ready(function(event) { 
 
 	console.log(backgroundIndex);
 
-	setTimeout(game.setNewBackground, 15000);
+	setInterval(game.setNewBackground, 15000);
 
 	$("#displayAnswer").hide();
 	$("#displayResults").hide();
@@ -327,6 +334,7 @@ $(document).ready(function(event) {
   		// to avoid multiple click of restart button
   		if(!game.restarted) {
   			game.restartGame();
+  			game.restarted = true;
   		}
   	});
 

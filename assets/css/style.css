@@ -3,23 +3,30 @@
 }
 
 body {
-	background: url("../images/hpbackground1.jpg") no-repeat center center fixed;
+	background: black url("../images/hpbackground14.jpg") no-repeat center center fixed;
 	-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: 100% 100%;
     font-size: 30px;
     font-weight: 500;
     color: white;
     font-family: 'Fontdiner Swanky', cursive;
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 
 .heading, .start, .stats, .trivia {
 	border: 2px double white;
 	border-radius: 5px;
-	margin: 10px;
-	padding: 10px;
+	margin: 20px;
+	padding: 20px;
 	background-color: rgba(0,0,0,0.7);
+}
+
+.trivia {
+	margin-top: 40px;
 }
 
 h1>span {
