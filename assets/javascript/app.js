@@ -139,40 +139,35 @@ var game = {
 			// avoiding duplicate question indices
 			while(game.usedQuestionsIndex.indexOf(randomQuestionIndex) != -1) {
 				randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
-				//console.log("Duplicate hence random index - " + randomQuestionIndex);
 			}
 			// pushing index of current question to usedQuestionsIndex to avoid repetitive questions
 			game.usedQuestionsIndex.push(randomQuestionIndex);
 			game.currentQuestion = triviaQuestions[randomQuestionIndex];
-			console.log(game.currentQuestion.question);
 
 			$("#question").html(game.currentQuestion.question);
 
 			// choosing a random index to store correct answer
 			var correctAnswerIndex = Math.floor(Math.random()*4);
-			console.log("correct index " + correctAnswerIndex);
+			
 			var incorrectAnswersArrayIterator=0;
 			// populating choices for the question
 			for(var optionsIterator=0; optionsIterator<4; optionsIterator++) {
 				// populating correct choice
-				//console.log("optionsIterator = "+optionsIterator+", incorrectAnswersArrayIterator = " +incorrectAnswersArrayIterator);
 				if(optionsIterator === correctAnswerIndex) {
 					$("#option"+optionsIterator).html(game.currentQuestion.correct_answer);
 					$("#option"+optionsIterator).data("answer", "correct");
-					//console.log("correct answer at " + optionsIterator + " is " + game.currentQuestion.correct_answer);
 				}
 				// populating wrong choices
 				else {
 					$("#option"+optionsIterator).html(game.currentQuestion.incorrect_answers[incorrectAnswersArrayIterator]);
 					incorrectAnswersArrayIterator++;
 					$("#option"+optionsIterator).data("answer", "wrong");
-					//console.log("wrong answer at " + optionsIterator + " is " + game.currentQuestion.incorrect_answers[incorrectAnswersArrayIterator]);
 				}
 			}
 			$(".answerOptions").css("min-height", "38px");
 			game.answerChosen = false;
 			game.questionCount++;
-			console.log("Questions count - " + game.questionCount);
+			
 			$("#start").hide();
 			$(".triviaQuestion").show();
 			$("#questionsLeft").html(10 - game.questionCount);
@@ -195,7 +190,6 @@ var game = {
 
 	decrementTimer : function decrementTimer() {
 		$("#timeLeft").html(game.time);
-		console.log("counting down - " + game.time);
 
 		switch(game.time) {
 			case 5:
@@ -222,7 +216,6 @@ var game = {
 				$(".triviaQuestion").hide();
 				$("#timeLeft").html("0");
 				game.countDownStarted = false;
-				// game.time = 7;
 				game.answerChosen = true;
 				game.displayAnswer("none");
 				game.stopCountdown();
@@ -241,8 +234,6 @@ var game = {
 	},
 
 	evaluateResults : function evaluateResults(choice) {
-
-		console.log($(choice).data("answer"));
 
 		switch($(choice).data('answer')) {
 			case "correct":
@@ -311,7 +302,7 @@ var game = {
 		$("#timeLeft").hide();
 	 	
 	    restartGameAfterSetTime = setTimeout(function(){
-	  			game.restartGame();
+	  		game.restartGame();
 	  		
 	    },4500); 
 	},
@@ -329,9 +320,7 @@ var game = {
 		game.unanswered = 0;
 		game.countDownStarted = false;
 		game.countDownEnd = false
-		// game.restarted = false;
 		game.displayQuestion();
-		// clearInterval(countdownInterval);
 		$(".timer").show();
 		$("#timeLeft").show();
 		$("#timeLeft").css('background-color','#04ff00');
@@ -354,8 +343,6 @@ $(document).ready(function(event) {
 
 	setTimeout(hideCover,2000);
 
-	console.log(backgroundIndex);
-
 	setInterval(game.setNewBackground, 15000);
 
 	$("#displayAnswer").hide();
@@ -364,7 +351,6 @@ $(document).ready(function(event) {
   	$("#start").on("click",function(){
   		$(".instruction").hide();
   		$(".start").hide();
-  		console.log("Start button clicked");
   		game.displayQuestion();
   	});
 
@@ -384,15 +370,12 @@ $(document).ready(function(event) {
   			game.evaluateResults(this);
   			game.answerChosen = true;
   		}
-  		// game.getGiphyImage(currentQuestion.queryWord);
   	});
 
   	$("#restartTrivia").on("click", function(){
   		// to avoid multiple click of restart button
   			clearTimeout(restartGameAfterSetTime);
-  			game.restartGame();
-  			// game.restarted = true;
-  		
+  			game.restartGame();  		
   	});
 
 });
