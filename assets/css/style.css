@@ -27,6 +27,8 @@ body {
 	-webkit-animation: scaling 2.5s 4 ease;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-direction: alternate;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 /* opening page animation */
