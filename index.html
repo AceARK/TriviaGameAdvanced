@@ -19,16 +19,19 @@
 		</div>
 	<!-- </div> -->
 	<div class="container">
+		<!-- Heading -->
 		<div class="row heading text-center">
 			<div class="col-sm-12">
 				<h1><span>HARRY POTTER </span> TRIVIA</h1>
 			</div>
 		</div>
+		<!-- Start button -->
 		<div class="row start text-center">
 			<div class="col-sm-12">
 				<button id="start" class = "btn btn-lg btn-danger">Start</button>
 			</div>
-		</div>		
+		</div>	
+		<!-- Questions Left and Timer div -->
 		<div class="row stats">
 			<div class="col-sm-6">
 				Questions left: <span id="questionsLeft"></span>
@@ -37,13 +40,16 @@
 				<p id="timeLeft">8</p>
 			</div>
 		</div>
+		<!-- Main div that displays instruction/ questions/ right answer/ result at end of game. -->
 		<div class="trivia row">
 			<div class="col-sm-12">
+				<!-- Instruction -->
 				<div class="row text-center">
 					<div class="col-sm-12 instruction">
 						<h1>Click 'Start' to start Trivia</h1>
 					</div>
 				</div>
+				<!-- Question and choices -->
 				<div class="row">
 					<div class="col-sm-12 triviaQuestion text-center">
 						<div id="question" class="text-left"></div>
@@ -53,6 +59,7 @@
 						<div class="answerOptions" id="option3"></div>
 				    </div>
 				</div>
+				<!-- Answer and image -->
 				 <div class="row text-center">
 					<div class="col-sm-12" id="displayAnswer">
 						<p id="message"></p>
@@ -60,6 +67,7 @@
 						<div class="answerImage"></div>
 					</div>
 				</div>
+				<!-- Results at end of game round -->
 				<div class="row text-center">
 					<div class="col-sm-12" id="displayResults">
 						<p><span id="exclamation"></span> Here's how you fared: </p>
@@ -72,6 +80,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- Audio files -->
 		<audio id="hpTheme">
 		    <source src="assets/soundfiles/hptheme.mp3">
 		</audio>

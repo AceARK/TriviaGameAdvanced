@@ -1,3 +1,4 @@
+// Trivia Questions data
 var triviaQuestions = 
 [
 	{
@@ -110,13 +111,14 @@ var triviaQuestions =
 	}
 ]
 
+// Global variables
 var backgroundIndex = 0;
-
 var countdownInterval;
-
 var restartGameAfterSetTime;
 
+// Game object
 var game = {
+	// Declaring variables
 	time: 7,
 	countDownStarted: false,
 	countDownEnd: false,
@@ -128,10 +130,13 @@ var game = {
 	wrongAnswers: 0,
 	unanswered: 0,
 	correctAnswer: "",
+	// Array of messages to be displayed in case of right and wrong answers
 	correctMessage: ["Right Answer!!!", "You are Correct!!", "You're a Wiz!!", "Nicely Done!!"],
 	wrongMessage: ['Sorry, Wrong Answer.', 'Better luck next time.', 'Nope! Wrong Answer.'],
 
+	// Function to fetch trivia question JSON at random front list and populate questions and choices
 	displayQuestion : function displayQuestion()  {
+		// If 10 questions have not been displayed
 		if(game.questionCount<10) {
 			// choosing a question randomly from the list of questions
 			var randomQuestionIndex = Math.floor(Math.random()*triviaQuestions.length);
@@ -156,41 +161,48 @@ var game = {
 				if(optionsIterator === correctAnswerIndex) {
 					$("#option"+optionsIterator).html(game.currentQuestion.correct_answer);
 					$("#option"+optionsIterator).data("answer", "correct");
-				}
-				// populating wrong choices
-				else {
+				}else {
+					// populating wrong choices
 					$("#option"+optionsIterator).html(game.currentQuestion.incorrect_answers[incorrectAnswersArrayIterator]);
 					incorrectAnswersArrayIterator++;
 					$("#option"+optionsIterator).data("answer", "wrong");
 				}
 			}
 			$(".answerOptions").css("min-height", "38px");
+			// Reset flag to allow choices to be clicked
 			game.answerChosen = false;
+			// Increment question count
 			game.questionCount++;
 			
+			// Hide start button and show question
 			$("#start").hide();
 			$(".triviaQuestion").show();
+			// Calculate and display questions left
 			$("#questionsLeft").html(10 - game.questionCount);
+			// Start countdown and display timer
 			if(!game.countDownStarted) {
 				game.time = 7;
 				$(".timer").show();
 				$("#timeLeft").show();
 				game.startCountdown();
 			}	
-		}
-		else {
+		}else {
+			// If question count = 10, call function to display results
 			game.endGame();
 		}
 	},
 
+	// Function to start countdown
 	startCountdown : function startCountdown() {
 		countdownInterval = setInterval(game.decrementTimer,1000);
 		game.countDownStarted = true;
 	},
 
+	// Function to decrement timer
 	decrementTimer : function decrementTimer() {
 		$("#timeLeft").html(game.time);
 
+		// switch condition to add color and sound to timer based on seconds left
 		switch(game.time) {
 			case 5:
 				$("#timeLeft").css('background-color','#6aff00');
@@ -231,18 +243,22 @@ var game = {
 
 		}
 
+		// Decrement timer if not = 0
 		if(game.time>0){
 			game.time--;
 		}
 	},
 
+	// Stop countdown by clearing interval
 	stopCountdown : function stopCountdown() {
 		game.countDownStarted = false;
 		clearInterval(countdownInterval);
 	},
 
+	// Function to evaluate choice after each click of choice
 	evaluateResults : function evaluateResults(choice) {
 
+		// switch case to detect correct and wrong answers
 		switch($(choice).data('answer')) {
 			case "correct":
 				game.rightAnswers++;
@@ -255,66 +271,84 @@ var game = {
 			default:
 				break;
 		}
+		// stop countdown, reset time and update flag
 		game.stopCountdown();
 		game.countDownStarted = false;
 		game.time = 7;
+		// hide trivia div, call function to display answer
 		$(".triviaQuestion").hide();
 		game.displayAnswer($(choice).data('answer'));
 	},
 
+	// Function to display answer and show gif at the end of each question
 	displayAnswer : function displayAnswer(result) {
 
+		// display one of correct messages randomly chosen
 		if(result === "correct") {
 			var randomIndex = Math.floor(Math.random()*game.correctMessage.length);
 			$("#message").html("<span>" + game.correctMessage[randomIndex] + "</span>");
 			$("#rightAnswer").html("");
-		}
-		else if(result === "wrong") {
+
+		}else if(result === "wrong") {
+			// display one of the wrong messages randomly chosen, and the correct answer
 			var randomIndex = Math.floor(Math.random()*game.wrongMessage.length);
 			$("#message").html("<span>" + game.wrongMessage[randomIndex] + "</span>"); 
 			$("#rightAnswer").html("The correct answer was - <span>" + game.currentQuestion.correct_answer + "</span>");  
-		}
-		else {
+		}else {
+			// display time up message and correct answer
 			$("#message").html("<span>Time up!!</span>");
 			$("#rightAnswer").html("The correct answer was - <span>" + game.currentQuestion.correct_answer + "</span>");
 		}
-		
+		// display corresponding image
 	 	$(".answerImage").html("<img src='"+game.currentQuestion.src+"'>");
 	 	$("#displayAnswer").show();
+	 	// Time out function to perform set of operations only after 4 secs
 	    setTimeout(game.proceed, 4000);
 	},
 
+	// set of operations to be performed after displaying answer for 4 secs
 	proceed : function proceed() {
+		// hide all messages
 		$("#displayAnswer").hide();
 		$("#timeUp").hide();
+		// reset timer color
 		$("#timeLeft").css('background-color','#04ff00');
 		$("#timeLeft").css('border','4px solid #028700');
+		// call function to populate new question and choices
 		game.displayQuestion();
 		$("#timeLeft").html("8");
 	},
 	
+	// Function to be called at end of each game round to display results
 	endGame : function endGame() {
 
+		// hide other divs in triviaRow
 		$(".triviaQuestion").hide();
 		$("#displayAnswer").hide();
 
+		// display stats
 		$("#correctAnswers").html(game.rightAnswers);
 		$("#wrongAnswers").html(game.wrongAnswers);
 		$("#unanswered").html(game.unanswered);
 		
+		// If user scored more than 5 correct, display message else display another
 		(game.rightAnswers > 5) ? $("#exclamation").html("Good Job!!!") : $("#exclamation").html("All Done.");
 
+		// show all of it
 		$("#displayResults").show(); 
 		
+		// hide timer
 		$(".timer").hide();
 		$("#timeLeft").hide();
 	 	
+	 	// call restart game after 4.5 secs
 	    restartGameAfterSetTime = setTimeout(function(){
 	  		game.restartGame();
 	  		
 	    },4500); 
 	},
 
+	// restart function to reset all values and start trivia over
 	restartGame : function restartGame() {
 		game.time =  7;
 		game.questionArray = [];
@@ -337,6 +371,7 @@ var game = {
 		$("#displayResults").hide();
 	},
 
+	// Added feature to set a random background every 15 secs 
 	setNewBackground : function setNewBackground() {
 		backgroundIndex = Math.floor(Math.random()*19)+1;
 		var backgroundURL = 'black url("assets/images/hpbackground'+ backgroundIndex +'.jpg") no-repeat center center fixed';
@@ -349,22 +384,29 @@ var game = {
 // program begins
 $(document).ready(function(event) { 
 
+	// play theme
 	$("#hpTheme")[0].currentTime = 0;
 	$("#hpTheme")[0].play();
 
+	// hide opening page after 2.5 secs (= scale animation)
 	setTimeout(hideCover,2500);
 
+	// change background every 15 secs
 	setInterval(game.setNewBackground, 15000);
 
+	// hide divs that show answers and stats
 	$("#displayAnswer").hide();
 	$("#displayResults").hide();
 	
+	// check for start button click
   	$("#start").on("click",function(){
+  		// hide instruction and start button, call display question function
   		$(".instruction").hide();
   		$(".start").hide();
   		game.displayQuestion();
   	});
 
+  	// Added feature to match choice hover color to timer countdown color
   	$(".answerOptions").hover(function(){
   		var timerColor = $("#timeLeft").css('background-color');
   		$(this).css('color', timerColor);
@@ -374,6 +416,7 @@ $(document).ready(function(event) {
   		$(this).css('font-size', '25px');
   	});
 
+  	// On choosing an answer, stop countdown and call evaluate results
   	$(".answerOptions").on("click", function(){
   		game.stopCountdown();
   		// to avoid clicking multiple options and changing answer
@@ -383,6 +426,7 @@ $(document).ready(function(event) {
   		}
   	});
 
+  	// On click of restart button, clear timeout set to hide answer div, and restart game
   	$("#restartTrivia").on("click", function(){
   		// to avoid multiple click of restart button
   			clearTimeout(restartGameAfterSetTime);
@@ -391,6 +435,7 @@ $(document).ready(function(event) {
 
 });
 
+// hiding opening page
 function hideCover() {
 	$(".cover").hide();
 }

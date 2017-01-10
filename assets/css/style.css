@@ -17,6 +17,7 @@ body {
     height: 100%;
 }
 
+/* opening page style */
 .cover>img {
 	position: absolute;
 	z-index: 5;
@@ -28,17 +29,17 @@ body {
     -webkit-animation-direction: alternate;
 }
 
+/* opening page animation */
 @-webkit-keyframes scaling {
     from {
         -webkit-transform: scale(1);
-        /*opacity: 1;*/
     }
     to {
         -webkit-transform: scale(1.3);
-        /*opacity: 0.5;*/
     }
 }
 
+/* all div styles */
 .heading, .start, .stats, .trivia {
 	border: 2px double white;
 	border-radius: 5px;
@@ -51,14 +52,17 @@ body {
 	margin-top: 25px;
 }
 
+/* font for answers and exclamation */
 h1>span {
 	font-size: 60px;
 }
 
+/* hiding answer and result divs */
 #displayAnswer, #displayResults {
 	display: none;
 }
 
+/* timer css */
 .timer>p {
 	height: 50px;
 	width: 50px;
@@ -72,24 +76,29 @@ h1>span {
 	padding-left: 11px;
 }
 
+/* hide timer at start of game */
 .timer {
 	display: none;
 }
 
+/* styling question */
 #question {
 	margin: 10px;
 	margin-bottom: 15px;
 }
 
+/* style for choices */
 .answerOptions {
 	margin: 10px;
 	font-size: 25px;
 }
 
+/* style for results */
 p>span {
 	font-size: 50px;
 }
 
+/* style for dynamically generated exclamtion and span */
 #displayAnswer>p>span, #exclamation {
 	font-size: 35px;
 }
@@ -98,10 +107,12 @@ p>span {
 	font-size: 30px;
 }
 
+/* setting height for gif image */
 .answerImage>img {
 	height: 250px;
 }
 
+/* media query for larger screens */
 @media screen and (min-height: 800px) {
 	.heading, .start, .stats, .trivia {
 		margin: 20px;
