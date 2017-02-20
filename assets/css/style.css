@@ -1,7 +1,7 @@
 * {
 	box-sizing: border-box;
 }
-
+ 
 body {
 	background: black url("../images/hpbackground14.jpg") no-repeat center center fixed;
 	-webkit-background-size: cover;
@@ -131,4 +131,59 @@ p>span {
 #secs {
 	color: #04ff00;
 	font-size: 30px;
+}
+
+@media screen and (max-height: 700px) {
+	body {
+		font-size: 25px;
+	}
+
+	/* all div styles */
+	.heading, .start, .stats, .trivia {
+		margin: 10px;
+		padding: 15px;
+	}
+
+	.trivia {
+		margin-top: 18px;
+	}
+
+	/* font for answers and exclamation */
+	h1>span {
+		font-size: 55px;
+	}
+
+	/* style for results */
+	p>span {
+		font-size: 25px;
+	}
+
+	/* style for dynamically generated exclamtion and span */
+	#displayAnswer>p>span, #exclamation {
+		font-size: 25px;
+	}
+
+	#exclamation {
+		font-size: 25px;
+	}
+
+	/* setting height for gif image */
+	.answerImage>img {
+		height: 230px;
+	}
+
+	/* styling question */
+	#question {
+		font-size: 27px;
+	}
+
+	/* style for choices */
+	.answerOptions {
+		margin: 10px;
+		font-size: 25px;
+	}
+
+	h1 {
+		font-size: 28px;
+	}
 }
