@@ -27,6 +27,8 @@ body {
 	-webkit-animation: scaling 2.5s 4 ease;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-direction: alternate;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 /* opening page animation */
@@ -125,3 +127,8 @@ p>span {
 		height: 300px;
 	}
 } 
+
+#secs {
+	color: #04ff00;
+	font-size: 30px;
+}
